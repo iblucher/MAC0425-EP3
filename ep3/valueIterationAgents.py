@@ -83,14 +83,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         best_action = None
-        max_value = -99999
+        q_value = util.Counter()
 
         for action in self.mdp.getPossibleActions(state):
-            q_value = self.computeQValueFromValues(state, action)
-            if (q_value > max_value):
-                max_value = q_value
-                best_action = action
-        return best_action
+            q_value[action] = self.computeQValueFromValues(state, action)
+        return q_value.argMax()
 
     def getPolicy(self, state):
         return self.computeActionFromValues(state)
