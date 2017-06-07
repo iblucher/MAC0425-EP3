@@ -19,8 +19,6 @@
 # Set the given parameters to obtain the specified policies through
 # value iteration.
 
-# Prefer the close exit (+1), risking the cliff (-10)
-# Small discount so that the agent chooses the exit (+1)
 def question3a():
     answerDiscount = 0.1
     answerNoise = 0
