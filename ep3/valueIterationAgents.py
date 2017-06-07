@@ -49,7 +49,7 @@ class ValueIterationAgent(ValueEstimationAgent):
             for state in self.mdp.getStates():
                 max_value = -99999
                 for action in self.mdp.getPossibleActions(state):
-                    current_q = self.computeQValueFromValues(state, action)
+                    current_q = self.getQValue(state, action)
                     if (current_q >= max_value):
                         max_value = current_q
                         v[state] = current_q
