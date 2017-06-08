@@ -1,3 +1,6 @@
+# Nome: Isabela Blucher
+# Numero USP: 9298170
+
 # analysis.py
 # -----------
 # Licensing Information:  You are free to use or extend these projects for
