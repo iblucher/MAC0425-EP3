@@ -60,14 +60,16 @@ class QLearningAgent(ReinforcementAgent):
           there are no legal actions, which is the case at the
           terminal state, you should return a value of 0.0.
         """
-        q_values = []
+        max_value = -99999
         legal_actions = self.getLegalActions(state)
 
         if len(legal_actions) == 0:
             return 0.0
         for action in legal_actions:
-            q_values.append(self.getQValue(state, action))
-        return max(q_values)
+            q_value = self.getQValue(state, action)
+            if q_value > max_value:
+                max_value = q_value
+        return max_value
 
     def computeActionFromQValues(self, state):
         """
@@ -193,11 +195,11 @@ class ApproximateQAgent(PacmanQAgent):
         """
            Should update your weights based on transition
         """
+        weights = self.getWeights()
         features = self.featExtractor.getFeatures(state, action)
-        diff = (reward + self.discount
+        diff = (reward + self.discount * self.getValue(nextState)) - self.getQValue(state, action)
         for k in features.keys():
-
-
+            weights[k] = weights[k] + self.alpha * diff * features[k]
 
     def final(self, state):
         "Called at the end of each game."
@@ -207,5 +209,4 @@ class ApproximateQAgent(PacmanQAgent):
         # did we finish training?
         if self.episodesSoFar == self.numTraining:
             # you might want to print your weights here for debugging
-            "*** YOUR CODE HERE ***"
             pass

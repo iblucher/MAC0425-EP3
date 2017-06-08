@@ -55,13 +55,11 @@ class ValueIterationAgent(ValueEstimationAgent):
                         v[state] = current_q
             self.values = v
 
-
     def getValue(self, state):
         """
           Return the value of the state (computed in __init__).
         """
         return self.values[state]
-
 
     def computeQValueFromValues(self, state, action):
         """
@@ -83,6 +81,8 @@ class ValueIterationAgent(ValueEstimationAgent):
           terminal state, you should return None.
         """
         q_value = util.Counter()
+        if self.mdp.isTerminal(state):
+            return None
         for action in self.mdp.getPossibleActions(state):
             q_value[action] = self.computeQValueFromValues(state, action)
         return q_value.argMax()
